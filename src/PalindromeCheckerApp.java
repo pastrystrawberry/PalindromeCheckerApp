@@ -2,26 +2,66 @@ import java.util.Scanner;
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Stack;
-import java.util.Deque;
-import java.util.LinkedList;
 
 public class PalindromeCheckerApp {
-    public static void main(String[] args) {
-        String input = "level";
+    static class Node {
+        char data;
+        Node next;
 
-        Deque<Character> deque = new LinkedList<>();
+        Node(char data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        String input = "madam";
+
+        Node head = null;
+        Node tail = null;
 
         for (char c : input.toCharArray()) {
-            deque.add(c);
+            Node newNode = new Node(c);
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
         }
+
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        Node prev = null;
+        Node current = slow;
+
+        while (current != null) {
+            Node next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        Node firstHalf = head;
+        Node secondHalf = prev;
 
         boolean isPalindrome = true;
 
-        while (deque.size() > 1) {
-            if (deque.removeFirst() != deque.removeLast()) {
+        while (secondHalf != null) {
+            if (firstHalf.data != secondHalf.data) {
                 isPalindrome = false;
                 break;
             }
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
         }
 
         System.out.println("Input : " + input);
