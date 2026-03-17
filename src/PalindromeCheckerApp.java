@@ -2,20 +2,16 @@ import java.util.Scanner;
 
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Input text: ");
-        String text = sc.nextLine();
-
+        String input = scanner.nextLine();
         String reversed = "";
-        for (int i = text.length() - 1; i >= 0; i--) {
-            reversed = reversed + text.charAt(i);
+        for (int i = input.length() - 1; i >= 0; i--) {
+            reversed = reversed + input.charAt(i);
         }
-        boolean isPalindrome = text.equalsIgnoreCase(reversed);
-
+        boolean isPalindrome = input.equals(reversed);
         System.out.println("Is it a Palindrome? : " + isPalindrome);
-
-        sc.close();
+        scanner.close();
 
     }
 }
